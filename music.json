@@ -1,0 +1,20 @@
+[
+    {
+      "title": "Song 1",
+      "interpret": "Artist 1",
+      "album": "Album 1",
+      "genre": "Rock",
+      "length": 180,
+      "type": "mp3",
+      "path": "./music/song1.mp3"
+    },
+    {
+      "title": "Song 2",
+      "interpret": "Artist 2",
+      "album": "Album 2",
+      "genre": "Pop",
+      "length": 200,
+      "type": "mp3",
+      "path": "./music/song2.mp3"
+    }
+  ]
