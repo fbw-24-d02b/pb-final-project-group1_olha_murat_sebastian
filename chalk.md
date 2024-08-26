@@ -109,5 +109,20 @@ bgWhiteBright
       whitespaceBreak: true,
     })
   );
+- Font:
+Standard
+Slant
+Big
+Block
+Bubble
+Colossal
+Doom
+Ghost
+Lean
+Mini
+Script
+Small
+Thin
+Univers
 
   [for more information](https://www.npmjs.com/package/figlet)

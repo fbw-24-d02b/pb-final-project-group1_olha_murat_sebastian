@@ -14,11 +14,23 @@ console.log(
     })
 );
 
-let songs = JSON.parse(fs.readFileSync('music.json', 'utf8'));
-let playlists = JSON.parse(fs.readFileSync('playlists.json', 'utf8')).playlists;
+let songs = [];
+let playlists = [];
 let currentSong = null;
 let isPlaying = false;
 let currentPlaylist = null;
+
+try {
+    songs = JSON.parse(fs.readFileSync('music.json', 'utf8'));
+} catch (error) {
+    console.log(chalk.red('Error reading music.json: '), error);
+}
+
+try {
+    playlists = JSON.parse(fs.readFileSync('playlist.json', 'utf8')).playlists;
+} catch (error) {
+    console.log(chalk.red('Error reading playlist.json: '), error);
+}
 
 function playSong(song) {
     if (isPlaying && currentSong) {
@@ -113,6 +125,11 @@ async function createPlaylist() {
 }
 
 async function selectPlaylist() {
+    if (playlists.length === 0) {
+        console.log(chalk.red('No playlists available to select.'));
+        return;
+    }
+
     const { playlistName } = await inquirer.prompt({
         name: 'playlistName',
         type: 'list',
@@ -124,21 +141,7 @@ async function selectPlaylist() {
     console.log(chalk.green(`Selected playlist "${currentPlaylist.name}".`));
 }
 
-async function addNewSong() {
-    const newSong = await inquirer.prompt([
-        { name: 'title', type: 'input', message: 'Enter song title:' },
-        { name: 'interpret', type: 'input', message: 'Enter artist name:' },
-        { name: 'album', type: 'input', message: 'Enter album name:' },
-        { name: 'genre', type: 'input', message: 'Enter genre:' },
-        { name: 'length', type: 'number', message: 'Enter song length (seconds):' },
-        { name: 'type', type: 'list', message: 'Select file type:', choices: ['mp3', 'wav', 'wmx'] },
-        { name: 'path', type: 'input', message: 'Enter file path:' }
-    ]);
 
-    songs.push(newSong);
-    fs.writeFileSync('music.json', JSON.stringify(songs, null, 2));
-    console.log(chalk.green(`Added new song "${newSong.title}".`));
-}
 
 async function mainMenu() {
     const choices = [
@@ -166,6 +169,10 @@ async function mainMenu() {
         case 'playPause':
             if (isPlaying) pauseSong();
             else {
+                if (songs.length === 0) {
+                    console.log(chalk.red('No songs available to play.'));
+                    break;
+                }
                 const { songTitle } = await inquirer.prompt({
                     name: 'songTitle',
                     type: 'list',
@@ -183,6 +190,10 @@ async function mainMenu() {
             shufflePlaylist();
             break;
         case 'addSong':
+            if (songs.length === 0) {
+                console.log(chalk.red('No songs available to add.'));
+                break;
+            }
             const { addSongTitle } = await inquirer.prompt({
                 name: 'addSongTitle',
                 type: 'list',
@@ -192,11 +203,15 @@ async function mainMenu() {
             addSongToPlaylist(addSongTitle);
             break;
         case 'deleteSong':
+            if (!currentPlaylist || currentPlaylist.songs.length === 0) {
+                console.log(chalk.red('No songs available in the playlist to delete.'));
+                break;
+            }
             const { deleteSongTitle } = await inquirer.prompt({
                 name: 'deleteSongTitle',
                 type: 'list',
                 message: 'Select a song to delete from the playlist:',
-                choices: currentPlaylist ? currentPlaylist.songs.map(s => s.title) : []
+                choices: currentPlaylist.songs.map(s => s.title)
             });
             deleteSongFromPlaylist(deleteSongTitle);
             break;
