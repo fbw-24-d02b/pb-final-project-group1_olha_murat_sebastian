@@ -3,6 +3,9 @@ import fs from 'fs';
 import inquirer from 'inquirer';
 import player from 'play-sound';
 import figlet from 'figlet';
+import songList from "./data/music.json" assert {type: "JSON"};
+import playList from "./data/playlist.json" assert {type: "JSON"};
+
 
 console.log(
     figlet.textSync("mp 3!", {

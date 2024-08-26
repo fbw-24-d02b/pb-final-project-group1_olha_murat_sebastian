@@ -9,7 +9,7 @@ import fs from "fs";
  * Saves songlist to JSON
  * @param {Object[]} songList to save to file 
  */
-function saveList(songList){
+export function saveList(songList){
     fs.writeFileSync("./data/music.json", JSON.stringify({songList}, null, 2));
     console.log(chalk.green("Songlist saved successfully!"));
 }
@@ -20,7 +20,7 @@ function saveList(songList){
  * @param {Object[]} playList   playlist that gets extended
  * @returns {Object[]} altered playlist
  */
-function add2playlist(song, playList){
+export function add2playlist(song, playList){
     playList.push(song);
     fs.writeFileSync("./data/playlist.json", JSON.stringify({playList}, null, 2));
     console.log(chalk.green(`Added ${song.title} to playlist!`));
@@ -33,7 +33,7 @@ function add2playlist(song, playList){
  * @param {Object[]} playList
  * @returns {Object[]} Altered playlist
  */
-function removeFromPlaylist(song, playList){
+export function removeFromPlaylist(song, playList){
     const index = playList.findIndex(item => item.title === song.title && item.album === song.album);
     if(index !== -1){
         playList.splice(index, 1);
@@ -48,7 +48,7 @@ function removeFromPlaylist(song, playList){
  * @param {Object[]} songList New song gets added to this list
  * @returns {Object[]} Altered songlist
  */
-async function addNewSong(songList){
+export async function addNewSong(songList){
     const enquirer = new Enquirer();
     const questions = [
         {
