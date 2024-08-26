@@ -18,7 +18,7 @@ function saveList(songList){
  * Adds a song to the playlist
  * @param {Object} song  Song to add to playlist
  * @param {Object[]} playList   playlist that gets extended
- * @returns {OBject[]} altered playlist
+ * @returns {Object[]} altered playlist
  */
 function add2playlist(song, playList){
     playList.push(song);
@@ -48,7 +48,7 @@ function removeFromPlaylist(song, playList){
  * @param {Object[]} songList New song gets added to this list
  * @returns {Object[]} Altered songlist
  */
-function addNewSong(songList){
+async function addNewSong(songList){
     const enquirer = new Enquirer();
     const questions = [
         {
@@ -87,7 +87,7 @@ function addNewSong(songList){
             message: "Insert full path (incl. file name): "
         }
     ];
-    const song = enquirer.prompt(questions);
+    const song = await enquirer.prompt(questions);
 
     songList.push(song);
 
