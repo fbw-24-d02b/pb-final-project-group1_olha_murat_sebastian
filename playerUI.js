@@ -22,8 +22,13 @@ const mainMenu = [
     { name: "Skip", value: "skip"}
 ];
 
-const musicList = songList.map(song => `${song.title}, ${song.interpret}, ${song.length}`);  // TODO: Anpassen für Enquirer nicht Readline-Sync!!!
-const playlist = playList.map(song => `${song.title}, ${song.interpret}, ${song.length}`);
+const musicList = songList.map(song => {return {name: `${song.title}, ${song.interpret}, ${song.length}`, 
+    value: `${song.title}, ${song.interpret}, ${song.length}`
+}});  // TODO: Anpassen für Enquirer nicht Readline-Sync!!!
+
+const playlist = playList.map(song => {return {name: `${song.title}, ${song.interpret}, ${song.length}`, 
+    value: `${song.title}, ${song.interpret}, ${song.length}`
+}});
 
 
 console.log(
