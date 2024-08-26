@@ -74,7 +74,7 @@ function addNewSong(songList){
         {
             type: "input",
             name: "length",
-            message: "Insert song length: "
+            message: "Insert song length (in seconds!): "
         },
         {
             type: "input",
