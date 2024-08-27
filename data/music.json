@@ -1,4 +1,5 @@
-[
+{
+  "songList": [
     {
       "title": "Whip",
       "interpret": "Afro Dancehall Music",
@@ -45,3 +46,4 @@
       "path": "./music/vlog-lofi-instagram-stories-music-bgm-short-15-sec-212982.mp3"
     }
   ]
+}

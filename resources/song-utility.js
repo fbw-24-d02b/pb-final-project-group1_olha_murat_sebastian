@@ -1,22 +1,15 @@
-import songList from "./../data/music.json" assert { type: "json" };
-import playList from "./../data/playlist.json" assert { type: "json" };
 import chalk from "chalk";
 import Enquirer from "enquirer";
 import fs from "fs";
+const warning = chalk.hex("#FFA500"); // Orange warning color
 
-const playlist = playList.map((song) => {
-  return {
-    name: `${song.title}, ${song.interpret}, ${song.length}`,
-    value: `${song.title}, ${song.interpret}, ${song.length}`,
-  };
-});
 
 /**
  * Saves songlist to JSON
  * @param {Object[]} songList to save to file
  */
 export function saveList(songList) {
-  fs.writeFileSync("./data/music.json", JSON.stringify({ songList }, null, 2));
+  fs.writeFileSync("./data/music.json", JSON.stringify(songList, null, 2));
   console.log(chalk.green("Songlist saved successfully!"));
 }
 
@@ -49,7 +42,7 @@ export function removeFromPlaylist(song, playList) {
   if (index !== -1) {
     playList.splice(index, 1);
   }
-  console.log(chalk.orange(`Removed ${song.title} from playlist!`));
+  console.log(warning(`Removed ${song.title} from playlist!`));
   return playList;
 }
 
@@ -112,6 +105,10 @@ export async function addNewSong(songList) {
  * @returns {Object} song
  */
 export async function fetchFromList(songList) {
+  if (songList.length === 0) {
+    console.log(warning("Liste ist leer!"));
+    return null;
+  }
   const musicList = songList.map((song) => {
     return {
       name: `${song.title}, ${song.interpret}, ${song.length}`,
@@ -135,7 +132,7 @@ export async function fetchFromList(songList) {
   if (song) {
     return song;
   } else {
-    console.log(chalk.orange("Song nicht gefunden!"));
+    console.log(warning("Song nicht gefunden!"));
     return null;
   }
 }

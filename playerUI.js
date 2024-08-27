@@ -3,8 +3,8 @@ import fs from "fs";
 import Enquirer from "enquirer";
 import player from "play-sound";
 import figlet from "figlet";
-import songList from "./data/music.json" assert { type: "json" };
-import playList from "./data/playlist.json" assert { type: "json" };
+import songs from "./data/music.json" assert { type: "json" };
+import customList from "./data/playlist.json" assert { type: "json" };
 import {
   add2playlist,
   removeFromPlaylist,
@@ -18,8 +18,11 @@ import {
   playerSkip,
   playerStop,
 } from "./resources/player-utility.js";
-
+const warning = chalk.hex('#FFA500');  // Orange warning color
 const enquirer = new Enquirer();
+
+const songList = songs.songList;
+const playList = customList.playList;
 
 const mainMenu = [
   { name: "Exit", value: "exit" },
@@ -34,19 +37,19 @@ const mainMenu = [
   { name: "Skip", value: "skip" },
 ];
 
-const musicList = songList.map((song) => {
-  return {
-    name: `${song.title}, ${song.interpret}, ${song.length}`,
-    value: `${song.title}, ${song.interpret}, ${song.length}`,
-  };
-});
+// const musicList = songList.map((song) => {
+//   return {
+//     name: `${song.title}, ${song.interpret}, ${song.length}`,
+//     value: `${song.title}, ${song.interpret}, ${song.length}`,
+//   };
+// });
 
-const playlist = playList.map((song) => {
-  return {
-    name: `${song.title}, ${song.interpret}, ${song.length}`,
-    value: `${song.title}, ${song.interpret}, ${song.length}`,
-  };
-});
+// const playlist = playList.map((song) => {
+//   return {
+//     name: `${song.title}, ${song.interpret}, ${song.length}`,
+//     value: `${song.title}, ${song.interpret}, ${song.length}`,
+//   };
+// });
 
 console.log(
   figlet.textSync("mp 3!", {
@@ -81,14 +84,14 @@ while (true) {
       if (currentSong) {
         add2playlist(currentSong, playList);
       } else {
-        console.log(chalk.orange("Kein Song ausgewählt!"));
+        console.log(warning("Kein Song ausgewählt!"));
       }
       break;
     case "Delete from playlist":
       if (currentSong) {
         removeFromPlaylist(currentSong, playList);
       } else {
-        console.log(chalk.orange("Kein Song ausgewählt!"));
+        console.log(warning("Kein Song ausgewählt!"));
       }
       break;
     case "Playlist":
