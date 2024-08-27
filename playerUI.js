@@ -69,41 +69,41 @@ while (true) {
   const decision = await prompt.run();
 
   switch (decision) {
-    case "exit":
+    case "Exit":
       process.exit();
-    case "add song":
+    case "Add Song":
       addNewSong(songList);
       break;
-    case "music list":
-      currentSong = fetchFromList(songList);
+    case "Music list":
+      currentSong = await fetchFromList(songList);
       break;
-    case "add to playlist":
+    case "Add to playlist":
       if (currentSong) {
         add2playlist(currentSong, playList);
       } else {
         console.log(chalk.orange("Kein Song ausgewählt!"));
       }
       break;
-    case "delete from playlist":
+    case "Delete from playlist":
       if (currentSong) {
         removeFromPlaylist(currentSong, playList);
       } else {
         console.log(chalk.orange("Kein Song ausgewählt!"));
       }
       break;
-    case "playlist":
-      currentSong = fetchFromList(playList);
+    case "Playlist":
+      currentSong = await fetchFromList(playList);
       break;
-    case "play":
+    case "Play":
       playerPlay(currentSong);
       break;
-    case "pause":
+    case "Pause":
       playerPause(currentSong);
       break;
-    case "stop":
+    case "Stop":
       playerStop(currentSong);
       break;
-    case "skip":
+    case "Skip":
       playerSkip(currentSong, playList);
       break;
   }

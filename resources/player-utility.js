@@ -2,13 +2,14 @@ import chalk from "chalk";
 import Enquirer from "enquirer";
 import player from "play-sound";
 
+const playAudio = new player();
 /**
  * *Function takes a song and uses "play-sound" to play it
  * @param {Object} song Song to play
  */
 export function playerPlay(song) {
-  player.play(song.path, {
-    timeout: song.length,
+  playAudio.play("./." + song.path, {
+    timeout: Number(song.length),
     function(err) {
       if (err) {
         console.log(chalk.orange("Playback failed!"));
@@ -17,6 +18,7 @@ export function playerPlay(song) {
       }
     },
   });
+
 }
 
 /**

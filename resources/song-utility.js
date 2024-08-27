@@ -1,5 +1,5 @@
-import songList from "./data/music.json" assert { type: "JSON" };
-import playList from "./data/playlist.json" assert { type: "JSON" };
+import songList from "./../data/music.json" assert { type: "json" };
+import playList from "./../data/playlist.json" assert { type: "json" };
 import chalk from "chalk";
 import Enquirer from "enquirer";
 import fs from "fs";
