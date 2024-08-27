@@ -1,21 +1,12 @@
 [
   {
-    "title": "Whip",
-    "interpret": "Afro Dancehall Music",
-    "album": "",
-    "genre": "electro",
-    "length": "164",
+    "title": "Believe in miracle",
+    "interpret": "PrabajithK",
+    "album": "Mild Relaxation",
+    "genre": "entspannung",
+    "length": "122",
     "type": "mp3",
-    "path": "./music/whip-afro-dancehall-music-110235.mp3"
-  },
-  {
-    "title": "Just Relax",
-    "interpret": "Lesfm",
-    "album": "",
-    "genre": "electro",
-    "length": "160",
-    "type": "mp3",
-    "path": "./music/just-relax-11157.mp3"
+    "path": "./music/believe-in-miracle-by-prabajithk-121041.mp3"
   },
   {
     "title": "Into the Night",
@@ -27,30 +18,39 @@
     "path": "./music/into-the-night-uk-drill-music-20928.mp3"
   },
   {
-    "title": "For Her Chill",
-    "interpret": "Liderc",
-    "album": "Upbeat SUmmel Travel Vlog and IG Music Royalty Free Use",
+    "title": "For her Chill",
+    "interpret": "Upbeat Summet",
+    "album": "Travel Clog and ig music royalty free use",
     "genre": "electro",
     "length": "133",
     "type": "mp3",
     "path": "./music/for-her-chill-upbeat-summel-travel-vlog-and-ig-music-royalty-free-use-202298.mp3"
   },
   {
-    "title": "Vlog Lofi Instagram Stories",
-    "interpret": "Liderc",
-    "album": "Music BGM SHort",
+    "title": "Just Relax",
+    "interpret": "Lesfm",
+    "album": "",
+    "genre": "electro",
+    "length": "160",
+    "type": "mp3",
+    "path": "./music/just-realx-11157.mp3"
+  },
+  {
+    "title": "Vlog lofi",
+    "interpret": "Instagram Stories",
+    "album": "Music BGM short",
     "genre": "electro",
     "length": "15",
     "type": "mp3",
     "path": "./music/vlog-lofi-instagram-stories-music-bgm-short-15-sec-212982.mp3"
   },
   {
-    "title": "Believe in miracle",
-    "interpret": "PrabajithK",
-    "album": "Mild Relaxation",
-    "genre": "entspannung",
-    "length": "122",
+    "title": "Whip",
+    "interpret": "Prazikhanal",
+    "album": "Afro Dancehall Music",
+    "genre": "electro",
+    "length": "164",
     "type": "mp3",
-    "path": "./music/believe-in-miracle-by-prabajithk-121041.mp3"
+    "path": "./music/whip-afro-dancehall-music-110235.mp3"
   }
 ]

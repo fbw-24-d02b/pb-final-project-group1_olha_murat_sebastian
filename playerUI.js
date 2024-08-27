@@ -3,8 +3,8 @@ import fs from "fs";
 import Enquirer from "enquirer";
 import player from "play-sound";
 import figlet from "figlet";
-import songs from "./data/music.json" assert { type: "json" };
-import customList from "./data/playlist.json" assert { type: "json" };
+import songList from "./data/music.json" assert { type: "json" };
+import playList from "./data/playlist.json" assert { type: "json" };
 import {
   add2playlist,
   removeFromPlaylist,
@@ -21,8 +21,8 @@ import {
 const warning = chalk.hex('#FFA500');  // Orange warning color
 const enquirer = new Enquirer();
 
-const songList = songs.songList;
-const playList = customList.playList;
+// const songList = songs.songList;
+// const playList = customList.playList;
 
 const mainMenu = [
   { name: "Exit", value: "exit" },
@@ -98,7 +98,7 @@ while (true) {
       currentSong = await fetchFromList(playList);
       break;
     case "Play":
-      playerPlay(currentSong);
+      await playerPlay(currentSong);
       break;
     case "Pause":
       playerPause(currentSong);

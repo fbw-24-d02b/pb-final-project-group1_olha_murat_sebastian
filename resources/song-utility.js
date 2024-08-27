@@ -21,10 +21,8 @@ export function saveList(songList) {
  */
 export function add2playlist(song, playList) {
   playList.push(song);
-  fs.writeFileSync(
-    "./data/playlist.json",
-    JSON.stringify({ playList }, null, 2)
-  );
+  fs.writeFileSync("./data/playlist.json", JSON.stringify(playList, null, 2));
+
   console.log(chalk.green(`Added ${song.title} to playlist!`));
   return playList;
 }
@@ -41,6 +39,7 @@ export function removeFromPlaylist(song, playList) {
   );
   if (index !== -1) {
     playList.splice(index, 1);
+    fs.writeFileSync("./data/playlist.json", JSON.stringify(playList, null, 2));
   }
   console.log(warning(`Removed ${song.title} from playlist!`));
   return playList;

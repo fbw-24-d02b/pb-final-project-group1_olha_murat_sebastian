@@ -1,22 +1,11 @@
-{
-  "playList": [
-    {
-      "title": "Into the Night",
-      "interpret": "UK Drill Music",
-      "album": "",
-      "genre": "electro",
-      "length": "140",
-      "type": "mp3",
-      "path": "./music/into-the-night-uk-drill-music-20928.mp3"
-    },
-    {
-      "title": "Into the Night",
-      "interpret": "UK Drill Music",
-      "album": "",
-      "genre": "electro",
-      "length": "140",
-      "type": "mp3",
-      "path": "./music/into-the-night-uk-drill-music-20928.mp3"
-    }
-  ]
-}
+[
+  {
+    "title": "Into the Night",
+    "interpret": "UK Drill Music",
+    "album": "",
+    "genre": "electro",
+    "length": "140",
+    "type": "mp3",
+    "path": "./music/into-the-night-uk-drill-music-20928.mp3"
+  }
+]
