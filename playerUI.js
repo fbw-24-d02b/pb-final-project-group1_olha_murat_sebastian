@@ -75,7 +75,7 @@ while (true) {
     case "Exit":
       process.exit();
     case "Add Song":
-      addNewSong(songList);
+      await addNewSong(songList);
       break;
     case "Music list":
       currentSong = await fetchFromList(songList);
