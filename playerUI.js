@@ -1,59 +1,110 @@
-import chalk from 'chalk';
-import fs from 'fs';
-import Enquirer from 'enquirer';
-import player from 'play-sound';
-import figlet from 'figlet';
-import songList from "./data/music.json" assert {type: "json"};
-import playList from "./data/playlist.json" assert {type: "json"};
-import { add2playlist, removeFromPlaylist, addNewSong, saveList } from './resources/song-utility.js';
+import chalk from "chalk";
+import fs from "fs";
+import Enquirer from "enquirer";
+import player from "play-sound";
+import figlet from "figlet";
+import songList from "./data/music.json" assert { type: "json" };
+import playList from "./data/playlist.json" assert { type: "json" };
+import {
+  add2playlist,
+  removeFromPlaylist,
+  addNewSong,
+  saveList,
+  fetchFromList,
+} from "./resources/song-utility.js";
+import {
+  playerPlay,
+  playerPause,
+  playerSkip,
+  playerStop,
+} from "./resources/player-utility.js";
 
 const enquirer = new Enquirer();
 
 const mainMenu = [
-    { name: "Exit", value: "exit"},
-    { name: "Add Song", value: "add song"},
-    { name: "Music list", value: "music list"},
-    { name: "Add to playlist", value: "add to playlist"},
-    { name: "Delete from playlist", value: "delete from playlist"},
-    { name: "Playlist", value: "playlist"},
-    { name: "Play", value: "play"},
-    { name: "Pause", value: "pause"},
-    { name: "Stop", value: "stop"},
-    { name: "Skip", value: "skip"}
+  { name: "Exit", value: "exit" },
+  { name: "Add Song", value: "add song" },
+  { name: "Music list", value: "music list" },
+  { name: "Add to playlist", value: "add to playlist" },
+  { name: "Delete from playlist", value: "delete from playlist" },
+  { name: "Playlist", value: "playlist" },
+  { name: "Play", value: "play" },
+  { name: "Pause", value: "pause" },
+  { name: "Stop", value: "stop" },
+  { name: "Skip", value: "skip" },
 ];
 
-const musicList = songList.map(song => {return {name: `${song.title}, ${song.interpret}, ${song.length}`, 
-    value: `${song.title}, ${song.interpret}, ${song.length}`
-}});  // TODO: Anpassen für Enquirer nicht Readline-Sync!!!
+const musicList = songList.map((song) => {
+  return {
+    name: `${song.title}, ${song.interpret}, ${song.length}`,
+    value: `${song.title}, ${song.interpret}, ${song.length}`,
+  };
+});
 
-const playlist = playList.map(song => {return {name: `${song.title}, ${song.interpret}, ${song.length}`, 
-    value: `${song.title}, ${song.interpret}, ${song.length}`
-}});
-
+const playlist = playList.map((song) => {
+  return {
+    name: `${song.title}, ${song.interpret}, ${song.length}`,
+    value: `${song.title}, ${song.interpret}, ${song.length}`,
+  };
+});
 
 console.log(
-    figlet.textSync("mp 3!", {
-      font: "Ghost",
-      horizontalLayout: "default",
-      verticalLayout: "default",
-      width: 80,
-      whitespaceBreak: true,
-    })
+  figlet.textSync("mp 3!", {
+    font: "Ghost",
+    horizontalLayout: "default",
+    verticalLayout: "default",
+    width: 80,
+    whitespaceBreak: true,
+  })
 );
 
-while(true){
-    const prompt = new Enquirer.Select({
-        name: 'main menu',
-        message: 'Pick a function: ',
-        choices: mainMenu,
-      });
-      
-    const decision = await prompt.run();
+let currentSong = null;
+while (true) {
+  const prompt = new Enquirer.Select({
+    name: "main menu",
+    message: "Pick a function: ",
+    choices: mainMenu,
+  });
 
-    switch(decision){
-        case "exit":
-            process.exit();
-        case "add song":
-            // TODO: switch case code here!!!
-    }
+  const decision = await prompt.run();
+
+  switch (decision) {
+    case "exit":
+      process.exit();
+    case "add song":
+      addNewSong(songList);
+      break;
+    case "music list":
+      currentSong = fetchFromList(songList);
+      break;
+    case "add to playlist":
+      if (currentSong) {
+        add2playlist(currentSong, playList);
+      } else {
+        console.log(chalk.orange("Kein Song ausgewählt!"));
+      }
+      break;
+    case "delete from playlist":
+      if (currentSong) {
+        removeFromPlaylist(currentSong, playList);
+      } else {
+        console.log(chalk.orange("Kein Song ausgewählt!"));
+      }
+      break;
+    case "playlist":
+      currentSong = fetchFromList(playList);
+      break;
+    case "play":
+      playerPlay(currentSong);
+      break;
+    case "pause":
+      playerPause(currentSong);
+      break;
+    case "stop":
+      playerStop(currentSong);
+      break;
+    case "skip":
+      playerSkip(currentSong, playList);
+      break;
+  }
 }
