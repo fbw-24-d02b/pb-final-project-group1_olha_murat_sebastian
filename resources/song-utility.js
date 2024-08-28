@@ -90,14 +90,36 @@ export async function addNewSong(songList) {
     },
   ];
   const song = await enquirer.prompt(questions);
-
-  songList.push(song);
-
-  saveList(songList);
+  if(isValidSong(song)){
+    songList.push(song);
+    saveList(songList);
+  } else {
+    console.log(warning("Song invalid - Please add at least title AND path!!!"));
+  }
+  
 
   return songList;
 }
 
+/**
+ * Cheks if an newly added Song fulfils minimum requirements
+ * @param {Object} song 
+ * @returns {boolean} isValid 
+ */
+function isValidSong(song){
+  let isValid = true;
+  if (song.title === undefined || song.title === ""){
+    console.log(warning("No title added!"));
+    isValid = false;
+  } else if (song.path === undefined || song.path === ""){
+    console.log(warning("No path added!"));
+    isValid = false;
+  } else if (!song.path.endswith(".mp3") && !song.path.endswith(".wav") && !song.path.endswith(".wma")){
+    console.log(warning("Path has to contain file name and ending!"));
+    isValid = false;
+  }
+  return isValid;
+}
 /**
  * Selects a Song from the Songlist.
  * @param {Object[]} musicList

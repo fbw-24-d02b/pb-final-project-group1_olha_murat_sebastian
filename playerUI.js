@@ -56,6 +56,7 @@ while (true) {
 
   switch (decision) {
     case "Exit":
+      playerStop();
       process.exit();
     case "Add Song":
       await addNewSong(songList);
