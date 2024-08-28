@@ -1,7 +1,5 @@
 import chalk from "chalk";
-import fs from "fs";
 import Enquirer from "enquirer";
-import player from "play-sound";
 import figlet from "figlet";
 import songList from "./data/music.json" assert { type: "json" };
 import playList from "./data/playlist.json" assert { type: "json" };
@@ -21,9 +19,8 @@ import {
 const warning = chalk.hex('#FFA500');  // Orange warning color
 const enquirer = new Enquirer();
 
-// const songList = songs.songList;
-// const playList = customList.playList;
 
+// Array representing the player main menu
 const mainMenu = [
   { name: "Exit", value: "exit" },
   { name: "Add Song", value: "add song" },
@@ -36,20 +33,6 @@ const mainMenu = [
   { name: "Stop", value: "stop" },
   { name: "Skip", value: "skip" },
 ];
-
-// const musicList = songList.map((song) => {
-//   return {
-//     name: `${song.title}, ${song.interpret}, ${song.length}`,
-//     value: `${song.title}, ${song.interpret}, ${song.length}`,
-//   };
-// });
-
-// const playlist = playList.map((song) => {
-//   return {
-//     name: `${song.title}, ${song.interpret}, ${song.length}`,
-//     value: `${song.title}, ${song.interpret}, ${song.length}`,
-//   };
-// });
 
 console.log(
   figlet.textSync("mp 3!", {
@@ -101,10 +84,10 @@ while (true) {
       await playerPlay(currentSong);
       break;
     case "Pause":
-      playerPause(currentSong);
+      playerPause();
       break;
     case "Stop":
-      playerStop(currentSong);
+      playerStop();
       break;
     case "Skip":
       playerSkip(currentSong, playList);

@@ -189,23 +189,23 @@ import cliProgress from 'cli-progress';
 import player from "play-sound";
 
 const warning = chalk.hex("#FFA500"); // Orange warning color
-const playAudio = player(); // Инициализация плеера
+const playAudio = player(); // Initialising player
 
-let isPlaying = false; // Отслеживание состояния воспроизведения
-let currentProcess = null; // Переменная для хранения текущего аудиопроцесса
-let progressBar = null; // Переменная для хранения прогресс-бара
-let interval = null; // Переменная для хранения интервала обновления прогресса
+let isPlaying = false; // Player playback state
+let currentProcess = null; // Varable to store the current player process
+let progressBar = null; // Initialising progress bar
+let interval = null; // Interval for view updates
 
 /**
- * Функция воспроизведения песни.
- * @param {Object} song - Песня для воспроизведения.
+ * * Utility function for the player. It takes a song object and plays the song using the installed player
+ * @param {Object} song - Song Object to be played
  */
 export async function playerPlay(song) {
   const filePath = `./${song.path}`;
 
-  // Останавливаем предыдущее воспроизведение и прогресс, если что-то уже играет
+  // Stops playback if playback is in progress
   if (isPlaying && currentProcess) {
-    playerStop(); // Останавливаем предыдущее воспроизведение и прогресс-бар
+    playerStop(); // Also stops progress bar
   }
 
   currentProcess = playAudio.play(filePath, (err) => {
@@ -219,7 +219,6 @@ export async function playerPlay(song) {
 
   console.log(chalk.green(`Playing ${song.title} by ${song.interpret}:`));
 
-  // Настройка прогресс-бара
   progressBar = new cliProgress.SingleBar({
     format: `${chalk.green('{bar}')} | {percentage}% | {value}/{total} seconds`,
     barCompleteChar: '\u2588',
@@ -233,7 +232,7 @@ export async function playerPlay(song) {
   progressBar.start(totalTime, 0);
   isPlaying = true;
 
-  // Обновление прогресс-бара каждую секунду
+  // Progress bar updated every second
   interval = setInterval(() => {
     currentTime++;
     progressBar.update(currentTime);
@@ -248,14 +247,15 @@ export async function playerPlay(song) {
 }
 
 /**
- * Функция остановки воспроизведения.
+ * Stops currentProcess. Playback is stopped
+ * Also stops the progress bar
  */
 export function playerStop() {
   if (isPlaying && currentProcess) {
-    currentProcess.kill(); // Останавливаем воспроизведение
-    clearInterval(interval); // Останавливаем обновление прогресс-бара
+    currentProcess.kill(); // Here playback is stopped
+    clearInterval(interval); // Update interval is cleared
     if (progressBar) {
-      progressBar.stop(); // Останавливаем и скрываем прогресс-бар
+      progressBar.stop(); // Progress bar stopped
     }
     console.log(chalk.red('Playback stopped.'));
     isPlaying = false;
@@ -263,18 +263,19 @@ export function playerStop() {
 }
 
 /**
- * Функция паузы воспроизведения.
- * @param {Object} song - Песня для паузы.
+ * Utility function to pause current playback
+ * This player doesn't support pause.
+ * playerstop() used instead.
  */
-export function playerPause(song) {
-  playerStop(song);
+export function playerPause() {
+  playerStop();
 }
 
-/**
- * Функция пропуска на следующую песню.
- * @param {Object} song - Текущая песня.
- * @param {Object[]} songList - Список песен для воспроизведения.
- */
+// /**
+//  * *Function skips to the next song
+//  * @param {Object} song  currently playing song
+//  * @param {Object[]} songList  List for the next song
+//  */
 export function playerSkip(song, songList) {
   if (songList.length > 0) {
     let index = songList.findIndex((item) => item.title === song.title);
