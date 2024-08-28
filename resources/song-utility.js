@@ -90,7 +90,7 @@ export async function addNewSong(songList) {
     },
   ];
   const song = await enquirer.prompt(questions);
-  if(isValidSong(song)){
+  if(isValidSong(song)){      // Prevent that "empty" Songs get stored into the library
     songList.push(song);
     saveList(songList);
   } else {
@@ -114,8 +114,8 @@ function isValidSong(song){
   } else if (song.path === undefined || song.path === ""){
     console.log(warning("No path added!"));
     isValid = false;
-  } else if (!song.path.endswith(".mp3") && !song.path.endswith(".wav") && !song.path.endswith(".wma")){
-    console.log(warning("Path has to contain file name and ending!"));
+  } else if (!fs.existsSync("./." + song.path)){
+    console.log(warning("File Path is invalid or doesn't exist!"));
     isValid = false;
   }
   return isValid;
